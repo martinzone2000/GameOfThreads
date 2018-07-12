@@ -1,0 +1,14 @@
+.Gallery {
+    
+}
+
+.Gallery-images {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.Gallery-image {
+    float: left;
+    width: 33.33%;
+}
