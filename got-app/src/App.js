@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import NavBar from './components/NavBar/NavBar.js';
 import Home from './components/Home/Home.js';
 import Trophy from './components/Trophy/Trophy.js';
 import Badge from './components/Badge/Badge.js';
@@ -12,10 +13,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
+          <NavBar />
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
