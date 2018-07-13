@@ -14,9 +14,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <NavBar />
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
+          <br />
           <div>
             <Route exact path="/home" component={Home} />
             <Route exact path="/trophy" component={Trophy} />
