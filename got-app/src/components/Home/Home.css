@@ -1,0 +1,45 @@
+.score {
+    display: inline-block;
+    width: 100px;
+    height:100px;
+    border-width: 8px;
+    border-color: blue;
+    border-style: solid;
+    margin: 3%;
+    border-radius: 50%;
+}
+
+.score span:first-child {
+    font-size: x-small;
+    display: block;
+    margin-top: 15px;
+    color: gray
+
+}
+
+.score span:nth-child(2) {
+    font-size: x-large;
+    display: block;
+    font-weight: bolder
+}
+
+.score span:nth-child(3) {
+    font-size: x-large;
+    display: block;
+    font-weight: bolder;
+    padding-left: 85px;
+    font-size: x-small;
+}
+
+.plus{
+    color: green
+}
+
+.minus{
+    color: red
+}
+
+.clear {
+    opacity: 0;
+}
+
