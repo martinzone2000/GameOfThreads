@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/OneTechLP/GameOfThreads/issues"
   },
-  "homepage": "https://github.com/OneTechLP/GameOfThreads#readme"
+  "homepage": "https://github.com/OneTechLP/GameOfThreads#readme",
+  "dependencies": {
+    "gh-pages": "^1.2.0"
+  }
 }
