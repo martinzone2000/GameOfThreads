@@ -43,3 +43,37 @@
     opacity: 0;
 }
 
+.smallimg {
+    width: 40px;
+    height: 40px;
+}
+
+.accountRow {
+    width: 60%;
+    margin: 1px 0 0 20%;
+    display:table;
+    text-align: left
+}
+
+.accountColumn {
+    width: 20%;
+    padding: 0 0 0 1em;
+    display: table-cell;
+    text-align: left;
+    background-color: lightgray;
+}
+
+.accountColumn:nth-child(3){
+    padding: 0 1em 0 0;
+    text-align: right
+}
+
+.accountColumn:nth-child(2){
+    padding: 0 0 0 3em;
+    margin: 0 5px 0 5px;
+}
+
+.trophy {
+    align-content: left;
+}
+
