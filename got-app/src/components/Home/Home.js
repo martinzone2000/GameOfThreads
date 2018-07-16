@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './Home.css';
-import Score from './Score.js'
-import Bureau from '../../models/Bureau.js'
-import RegisterView from "./RegisterView"
-import AccountRegister from "../../models/AccountRegister"
-import Account from "../../models/Account"
+import Score from './Score.js';
+import Bureau from '../../models/Bureau.js';
+import RegisterView from "./RegisterView";
+import AccountRegister from "../../models/AccountRegister";
+import Account from "../../models/Account";
+import BadgeModel from "../../models/Badge";
 
 class Home extends Component {
 
@@ -18,7 +19,13 @@ class Home extends Component {
         new Bureau("Experian", 650, 400, 850),
         new Bureau("Equifax", 675, 400, 850)
       ],
-      register: new AccountRegister()
+      register: new AccountRegister(),
+      badgeCompendium : [
+        new BadgeModel(1, "Trophy", "Earned every month you are enrolled.", "/images/badges/trophy.png", 0)
+      ],
+      customerBadges : [
+        new BadgeModel(1, "Trophy", "Earned every month you are enrolled.", "/images/badges/trophy.png", 0)
+      ]
     }
 
     this.state.register.accounts.push(new Account("Wells Fargo", "mortgage", 255000, [], 255000))
@@ -40,6 +47,25 @@ class Home extends Component {
         bureaus:newb
       }
     )
+  }
+
+
+  componentWillMount() {
+    console.log(this.state.badgeCompendium);
+    var badgeCompendium = localStorage.getItem('badgeCompendium');
+    var customerBadges = localStorage.getItem('customerBadges');
+
+    if(badgeCompendium == null) {
+      localStorage.setItem('badgeCompendium', JSON.stringify(this.state.badgeCompendium));
+    } else {
+      this.state.badgeCompendium = badgeCompendium;
+    }
+
+    if(customerBadges == null) {
+      localStorage.setItem('customerBadges', JSON.stringify(this.state.customerBadges));
+    } else {
+      this.state.customerBadges = customerBadges;
+    }
   }
 
   render() {

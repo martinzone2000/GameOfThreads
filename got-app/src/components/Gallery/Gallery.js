@@ -3,10 +3,10 @@ import './Gallery.css'
 
 class Gallery extends React.Component {
 
-    renderImage(imageUrl, i) {
+    renderImage(badge, i) {
         return (
             <div className="Gallery-image" key={i}>
-                <img src={imageUrl} />
+                <img src={badge.imageUrl} />
             </div>
         );
     }
@@ -15,7 +15,7 @@ class Gallery extends React.Component {
         return (
           <div className="Gallery">
             <div className="Gallery-images">
-                {this.props.imageUrls.map((imageUrl, i) => this.renderImage(imageUrl, i))}
+                { this.props.badgeList && this.props.badgeList.map((badge, i) => this.renderImage(badge, i))}
             </div>
           </div>
         );
