@@ -3,20 +3,27 @@ import './Gallery.css'
 
 class Gallery extends React.Component {
 
-    renderImage(imageUrl, i) {
-        return (
-            <div className="Gallery-image" key={i}>
-                <img src={imageUrl} />
-            </div>
-        );
+    renderImage(badge, i) {
+        if(badge.count > 0) {
+            return (
+                <div className="Gallery-image" key={i}>
+                    <img src={badge.imageUrl} />x{badge.count}
+                </div>
+            );
+        } else {
+            return (
+                <div className="Gallery-image" key={i}>
+                    <img src={badge.imageUrl} />
+                </div>
+            );
+        }
+        
     }
 
     render() {
         return (
           <div className="Gallery">
-            <div className="Gallery-images">
-                {this.props.imageUrls.map((imageUrl, i) => this.renderImage(imageUrl, i))}
-            </div>
+                { this.props.badgeList && this.props.badgeList.map((badge, i) => this.renderImage(badge, i))}
           </div>
         );
       }
