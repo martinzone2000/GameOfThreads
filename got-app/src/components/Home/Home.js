@@ -5,7 +5,9 @@ import Bureau from '../../models/Bureau.js';
 import RegisterView from "./RegisterView";
 import AccountRegister from "../../models/AccountRegister";
 import Account from "../../models/Account";
-import BadgeModel from "../../models/Badge";
+import Badge from "../../models/Badge";
+import BadgeCollection from '../../models/BadgeCollection';
+import CustomerBadges from '../../models/CustomerBadges';
 
 class Home extends Component {
 
@@ -20,51 +22,67 @@ class Home extends Component {
         new Bureau("Equifax", 675, 400, 850)
       ],
       register: new AccountRegister(),
-      badgeCompendium : [
-        new BadgeModel(1, "Trophy", "Earned every month you are enrolled.", "/images/badges/trophy.png", 0)
-      ],
-      customerBadges : [
-        new BadgeModel(1, "Trophy", "Earned every month you are enrolled.", "/images/badges/trophy.png", 0)
-      ]
+      badge: new Badge(),
+      badgeCompendium : new BadgeCollection(),
+      customerBadges : new CustomerBadges()
     }
 
     this.state.register.accounts.push(new Account("Wells Fargo", "mortgage", 255000, [], 255000))
     this.state.register.accounts.push(new Account("Toyota Finance", "auto", 12500, [], 12500))
     this.state.register.accounts.push(new Account("CitiBank Visa", "creditcard", 2500, [], 10000))
     this.state.register.accounts.push(new Account("American ", "creditcard", 1450, [], 15000))
+
+    this.state.badgeCompendium.badgeCollection.push(this.state.badge.addTrophy());
+    this.state.badgeCompendium.badgeCollection.push(this.state.badge.addGoingUp());
+    this.state.badgeCompendium.badgeCollection.push(this.state.badge.addSuperStar());
+    this.state.badgeCompendium.badgeCollection.push(this.state.badge.addBlastOff());
+    this.state.badgeCompendium.badgeCollection.push(this.state.badge.addLoyalty());
+    this.state.badgeCompendium.badgeCollection.push(this.state.badge.addQuizMaster());
+    this.state.badgeCompendium.badgeCollection.push(this.state.badge.addRecruiter());
+    this.state.badgeCompendium.badgeCollection.push(this.state.badge.addTechnoMaster());
+    console.log(this.state.badgeCompendium.badgeCollection);
   }
 
   UpdateScores =  () => {
 
     var newb = [];
-
+    var stringify = require('json-stable-stringify');
     for(var i=0 ; i < this.state.bureaus.length ; i++) {
       newb.push(this.state.bureaus[i].refresh())
     }
+
+    this.state.customerBadges.updateBadgeCollection(this.state.bureaus)
 
     this.setState(
       {
         bureaus:newb
       }
-    )
+    );
+    
+    localStorage.setItem('customerBadges', stringify(this.state.customerBadges.customerBadgeCollection));
   }
 
 
   componentWillMount() {
-    console.log(this.state.badgeCompendium);
+    
+    var stringify = require('json-stable-stringify');
     var badgeCompendium = localStorage.getItem('badgeCompendium');
     var customerBadges = localStorage.getItem('customerBadges');
 
     if(badgeCompendium == null) {
-      localStorage.setItem('badgeCompendium', JSON.stringify(this.state.badgeCompendium));
+      
+      localStorage.setItem('badgeCompendium', stringify(this.state.badgeCompendium.badgeCollection));
     } else {
-      this.state.badgeCompendium = badgeCompendium;
+      
+      this.state.badgeCompendium.badgeCollection = JSON.parse(badgeCompendium);
     }
 
     if(customerBadges == null) {
-      localStorage.setItem('customerBadges', JSON.stringify(this.state.customerBadges));
+      
+      localStorage.setItem('customerBadges', stringify(this.state.customerBadges.customerBadgeCollection));
     } else {
-      this.state.customerBadges = customerBadges;
+      
+      this.state.customerBadges.customerBadgeCollection = JSON.parse(customerBadges);
     }
   }
 

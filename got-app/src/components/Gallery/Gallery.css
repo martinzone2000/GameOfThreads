@@ -1,11 +1,8 @@
 .Gallery {
-    
-}
-
-.Gallery-images {
     content: "";
     display: table;
     clear: both;
+    width: 100%;
 }
 
 .Gallery-image {

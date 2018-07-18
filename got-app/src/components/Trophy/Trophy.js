@@ -2,24 +2,23 @@ import React, { Component } from 'react';
 import './Trophy.css';
 import Gallery from '../Gallery/Gallery.js';
 import Grid from '../Grid/Grid.js';
-import BadgeModel from '../../models/Badge.js';
 
 class Trophy extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      badgeCompendium : [],
+      badgeCollection : [],
       customerBadges : []
     }
   }
 
   componentWillMount() {
     
-    var badgeCompendium = localStorage.getItem('badgeCompendium');
+    var badgeCollection = localStorage.getItem('badgeCompendium');
     var customerBadges = localStorage.getItem('customerBadges');
     
-    if(badgeCompendium == null) {
-      badgeCompendium = [];
+    if(badgeCollection == null) {
+      badgeCollection = [];
     }
 
     if(customerBadges == null) {
@@ -27,7 +26,7 @@ class Trophy extends Component {
     }
 
     this.setState({ 
-      badgeCompendium: JSON.parse(badgeCompendium), 
+      badgeCollection: JSON.parse(badgeCollection), 
       customerBadges: JSON.parse(customerBadges)
     });
   }
@@ -37,7 +36,7 @@ class Trophy extends Component {
         <h1>Trophy Page</h1>
         <Gallery badgeList={this.state.customerBadges} />
         <br />
-        <Grid badgeList={this.state.badgeCompendium} />
+        <Grid badgeList={this.state.badgeCollection} />
       </div>
     );
   }
