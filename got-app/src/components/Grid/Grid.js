@@ -7,7 +7,7 @@ class Grid extends React.Component {
         super(props);
         this._columns = [
             {
-                key: 'name',
+                key: 'displayName',
                 name: 'Badge Name',
                 width: 200,
             },

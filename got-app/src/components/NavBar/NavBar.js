@@ -60,7 +60,7 @@ class NavBar extends React.Component {
                                 <Link to="/trophy">
                                     <MenuItem onClick={this.handleClose}>Trophy</MenuItem>
                                 </Link>
-                                <Link to="/badge">
+                                <Link to="/badge/BlastOff">
                                     <MenuItem onClick={this.handleClose}>Badge</MenuItem>
                                 </Link>
                             </Menu>

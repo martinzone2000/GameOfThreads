@@ -14,7 +14,7 @@ export default class CustomerBadges {
     updateBadgeCollection(bureauData) {
         if(bureauData[0].change > 5 || bureauData[1].change > 5 || bureauData[2].change > 5) {
             if(this.containsBadge(this.customerBadgeCollection, this.badge.addGoingUp())) {
-                this.changeBadgeObjectCount("Going Up");
+                this.changeBadgeObjectCount("GoingUp");
             } else {
                 this.customerBadgeCollection.push(this.badge.addGoingUp());
             }
