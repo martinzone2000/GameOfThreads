@@ -45,28 +45,28 @@ class Home extends Component {
     var reports = [];
 
     //month 1
-    var cr = new CreditReport()
+    var cr = new CreditReport(false, false)
     cr.addBureau(new Bureau("Trans Union", 502))
     cr.addBureau(new Bureau("Equifax", 520))
     cr.addBureau(new Bureau("Experian", 512))
     this.state.creditReports.push(cr)
 
     //month 2
-    cr = new CreditReport()
+    cr = new CreditReport(true, false)
     cr.addBureau(new Bureau("Trans Union", 522))
     cr.addBureau(new Bureau("Equifax", 530))
     cr.addBureau(new Bureau("Experian", 505))
     this.state.creditReports.push(cr)
 
     //month 3
-    cr = new CreditReport()
+    cr = new CreditReport(false, true)
     cr.addBureau(new Bureau("Trans Union", 622))
     cr.addBureau(new Bureau("Equifax", 635))
     cr.addBureau(new Bureau("Experian", 640))
     this.state.creditReports.push(cr)
 
     //month 4
-    cr = new CreditReport()
+    cr = new CreditReport(true, true)
     cr.addBureau(new Bureau("Trans Union", 600))
     cr.addBureau(new Bureau("Equifax", 630))
     cr.addBureau(new Bureau("Experian", 650))
@@ -129,6 +129,9 @@ class Home extends Component {
           )
 
         }
+        <div>Referrals: {this.state.creditReports[this.state.currentReport].referrals ? "Yes":"No"}</div>
+        <div>Quiz: {this.state.creditReports[this.state.currentReport].quiz ? "Yes":"No"}</div>
+        <div>Refresh Count: {this.state.creditReports[this.state.currentReport].refreshCount}</div>
         <div>
           <button className="button" onClick={this.UpdateScores}>Refresh</button>
         </div>
