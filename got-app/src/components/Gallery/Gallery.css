@@ -3,9 +3,16 @@
     display: table;
     clear: both;
     width: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .Gallery-image {
     float: left;
     width: 33.33%;
+    padding-bottom: 25px;
+}
+
+.image {
+    float: left;
 }

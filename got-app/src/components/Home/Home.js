@@ -72,6 +72,13 @@ class Home extends Component {
     cr.addBureau(new Bureau("Equifax", 630))
     cr.addBureau(new Bureau("Experian", 650))
     this.state.creditReports.push(cr)
+
+    //month 4
+    cr = new CreditReport(true, true)
+    cr.addBureau(new Bureau("Trans Union", 650))
+    cr.addBureau(new Bureau("Equifax", 730))
+    cr.addBureau(new Bureau("Experian", 680))
+    this.state.creditReports.push(cr)
     
   }
 
@@ -83,7 +90,7 @@ class Home extends Component {
     var next = this.state.creditReports[nextr];
     next.compare(cur);
     
-    this.state.customerBadges.updateBadgeCollection(this.state.creditReports[this.state.currentReport].bureaus);
+    this.state.customerBadges.updateBadgeCollection(this.state.creditReports[this.state.currentReport]);
 
     this.setState(
       {

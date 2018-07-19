@@ -11,7 +11,9 @@ export default class CustomerBadges {
         console.log(badge)
     }
 
-    updateBadgeCollection(bureauData) {
+    updateBadgeCollection(CreditRepot) {
+        var bureauData = CreditRepot.bureaus;
+        console.log(CreditRepot);
         if(bureauData[0].change > 5 || bureauData[1].change > 5 || bureauData[2].change > 5) {
             if(this.containsBadge(this.customerBadgeCollection, this.badge.addGoingUp())) {
                 this.changeBadgeObjectCount("GoingUp");
@@ -32,6 +34,22 @@ export default class CustomerBadges {
             this.changeBadgeObjectCount("Loyalty");
         } else {
             this.customerBadgeCollection.push(this.badge.addLoyalty());
+        }
+
+        if(CreditRepot.quiz) {
+            if(this.containsBadge(this.customerBadgeCollection, this.badge.addQuizMaster())) {
+                this.changeBadgeObjectCount("QuizMaster");
+            } else {
+                this.customerBadgeCollection.push(this.badge.addQuizMaster());
+            }
+        }
+
+        if(CreditRepot.referrals) {
+            if(this.containsBadge(this.customerBadgeCollection, this.badge.addRecruiter())) {
+                this.changeBadgeObjectCount("Recruiter");
+            } else {
+                this.customerBadgeCollection.push(this.badge.addRecruiter());
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDataGrid from 'react-data-grid';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-grid.css';
+import './Grid.css';
 
 class Grid extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class Grid extends React.Component {
                 columns={this._columns}
                 rowGetter={this.rowGetter}
                 rowsCount={this.props.badgeList.length}
-                minHeight={500} />
+                minHeight={350} />
             </div>
         );
     }
