@@ -1,9 +1,9 @@
 export default class Bureau {
-    constructor(name, score, high, low) {
+    constructor(name, score) {
         this.name = name;
         this.score=score;
-        this.high=high;
-        this.low=low;
+        this.high=800;
+        this.low=400;
         this.change=0;
     }
 

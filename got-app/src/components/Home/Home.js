@@ -8,19 +8,16 @@ import Account from "../../models/Account";
 import Badge from "../../models/Badge";
 import BadgeCollection from '../../models/BadgeCollection';
 import CustomerBadges from '../../models/CustomerBadges';
+import CreditReport from '../../models/CreditReport'
 
 class Home extends Component {
 
   constructor(props) {
     super(props);
 
-
     this.state = {
-      bureaus : [ 
-        new Bureau("Trans Union", 600, 400, 850),
-        new Bureau("Experian", 650, 400, 850),
-        new Bureau("Equifax", 675, 400, 850)
-      ],
+      currentReport : 0,
+      creditReports : [],
       register: new AccountRegister(),
       badge: new Badge(),
       badgeCompendium : new BadgeCollection(),
@@ -40,25 +37,61 @@ class Home extends Component {
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addQuizMaster());
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addRecruiter());
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addTechnoMaster());
+    this.InitReports();
     console.log(this.state.badgeCompendium.badgeCollection);
+  }
+
+  InitReports = () => {
+    var reports = [];
+
+    //month 1
+    var cr = new CreditReport()
+    cr.addBureau(new Bureau("Trans Union", 502))
+    cr.addBureau(new Bureau("Equifax", 520))
+    cr.addBureau(new Bureau("Experian", 512))
+    this.state.creditReports.push(cr)
+
+    //month 2
+    cr = new CreditReport()
+    cr.addBureau(new Bureau("Trans Union", 522))
+    cr.addBureau(new Bureau("Equifax", 530))
+    cr.addBureau(new Bureau("Experian", 505))
+    this.state.creditReports.push(cr)
+
+    //month 3
+    cr = new CreditReport()
+    cr.addBureau(new Bureau("Trans Union", 622))
+    cr.addBureau(new Bureau("Equifax", 635))
+    cr.addBureau(new Bureau("Experian", 640))
+    this.state.creditReports.push(cr)
+
+    //month 4
+    cr = new CreditReport()
+    cr.addBureau(new Bureau("Trans Union", 600))
+    cr.addBureau(new Bureau("Equifax", 630))
+    cr.addBureau(new Bureau("Experian", 650))
+    this.state.creditReports.push(cr)
+    
   }
 
   UpdateScores =  () => {
 
-    var newb = [];
-    var stringify = require('json-stable-stringify');
-    for(var i=0 ; i < this.state.bureaus.length ; i++) {
-      newb.push(this.state.bureaus[i].refresh())
-    }
-
-    this.state.customerBadges.updateBadgeCollection(this.state.bureaus)
+    var curr = this.state.currentReport;
+    var nextr = Math.min(curr+1, this.state.creditReports.length-1)
+    var cur = this.state.creditReports[curr];
+    var next = this.state.creditReports[nextr];
+    next.compare(cur);
+    
+    this.state.customerBadges.updateBadgeCollection(this.state.creditReports[this.state.currentReport].bureaus);
 
     this.setState(
       {
-        bureaus:newb
+        currentReport:nextr,
+        creditReports: this.state.creditReports
       }
     );
-    
+
+    var stringify = require('json-stable-stringify');
     localStorage.setItem('customerBadges', stringify(this.state.customerBadges.customerBadgeCollection));
   }
 
@@ -87,13 +120,13 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="Home">
         {
-          this.state.bureaus.map((b,i) => 
+          this.state.creditReports[this.state.currentReport].bureaus.map((b,i) => 
             <Score report={b} />
           )
-
 
         }
         <div>
