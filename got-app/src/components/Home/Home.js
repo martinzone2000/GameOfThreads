@@ -9,6 +9,7 @@ import Badge from "../../models/Badge";
 import BadgeCollection from '../../models/BadgeCollection';
 import CustomerBadges from '../../models/CustomerBadges';
 import CreditReport from '../../models/CreditReport'
+import MaterialsBadge from '@material-ui/core/Badge';
 
 class Home extends Component {
 
@@ -21,7 +22,8 @@ class Home extends Component {
       register: new AccountRegister(),
       badge: new Badge(),
       badgeCompendium : new BadgeCollection(),
-      customerBadges : new CustomerBadges()
+      customerBadges : new CustomerBadges(),
+      newCount : 0
     }
 
     this.state.register.accounts.push(new Account("Wells Fargo", "mortgage", 255000, [], 255000))
@@ -38,7 +40,6 @@ class Home extends Component {
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addRecruiter());
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addTechnoMaster());
     this.InitReports();
-    console.log(this.state.badgeCompendium.badgeCollection);
   }
 
   InitReports = () => {
@@ -93,6 +94,19 @@ class Home extends Component {
 
     var stringify = require('json-stable-stringify');
     localStorage.setItem('customerBadges', stringify(this.state.customerBadges.customerBadgeCollection));
+    this.state.newCount = this.getNewCount();
+  }
+
+  getNewCount() {
+    var count = 0;
+    console.log(this.state.customerBadges.customerBadgeCollection);
+
+    for(var i=0; i < this.state.customerBadges.customerBadgeCollection.length; i++) {
+      if(this.state.customerBadges.customerBadgeCollection[i].isNew) {
+        count ++;
+      }
+    }
+    return count;
   }
 
 
@@ -117,10 +131,11 @@ class Home extends Component {
       
       this.state.customerBadges.customerBadgeCollection = JSON.parse(customerBadges);
     }
+
+    this.state.newCount = this.getNewCount();
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="Home">
         {
@@ -132,9 +147,18 @@ class Home extends Component {
         <div>
           <button className="button" onClick={this.UpdateScores}>Refresh</button>
         </div>
-        <div className="trophy">
-            <a href="/trophy"><img className="smallimg" src="/images/trophy.jpg"/></a>
-        </div>
+        {
+          this.state.newCount > 0 ? (
+            <div className="trophy">
+              <MaterialsBadge className="Home-MaterialsBadge" badgeContent={this.state.newCount} color="primary">
+                  <a href="/trophy"><img className="smallimg" src="/images/trophy.jpg"/></a>
+              </MaterialsBadge>
+            </div>) : (
+              <div className="trophy">
+                <a href="/trophy"><img className="smallimg" src="/images/trophy.jpg"/></a>
+            </div>
+            )
+        }
         <div>
           <RegisterView register={this.state.register}/>
         </div>
