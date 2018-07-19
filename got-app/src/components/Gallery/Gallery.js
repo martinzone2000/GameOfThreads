@@ -3,16 +3,16 @@ import './Gallery.css'
 
 class Gallery extends React.Component {
     renderImage(badge, i) {
-        if(badge.count > 0) {
+        if(badge.count > 1) {
             return (
                 <div className="Gallery-image" key={i}>
-                   <a href={"/badge/"+badge.name}><img src={badge.imageUrl} />x{badge.count}</a>
+                   <a className="image" href={"/badge/"+badge.name}><img src={badge.imageUrl} /><div>x{badge.count}</div></a>
                 </div>
             );
         } else {
             return (
                 <div className="Gallery-image" key={i}>
-                    <a href={"/badge/"+badge.name}><img src={badge.imageUrl} /></a>
+                    <a className="image" href={"/badge/"+badge.name}><img src={badge.imageUrl} /><div></div></a>
                 </div>
             );
         }
