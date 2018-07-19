@@ -25,9 +25,18 @@ class Trophy extends Component {
       customerBadges == [];
     }
 
+    var jsonCustomerBadges = JSON.parse(customerBadges);
+    for(var i=0; i < jsonCustomerBadges.length; i++){
+      if(jsonCustomerBadges[i].isNew) {
+        jsonCustomerBadges[i].isNew = false;
+      }
+    }
+
+    localStorage.setItem('customerBadges', JSON.stringify(jsonCustomerBadges));
+
     this.setState({ 
       badgeCollection: JSON.parse(badgeCollection), 
-      customerBadges: JSON.parse(customerBadges)
+      customerBadges: jsonCustomerBadges
     });
   }
   render() {    

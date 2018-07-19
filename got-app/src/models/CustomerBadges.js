@@ -48,6 +48,7 @@ export default class CustomerBadges {
         for (var i in this.customerBadgeCollection) {
             if (this.customerBadgeCollection[i].name == name) {
                 this.customerBadgeCollection[i].count++;
+                this.customerBadgeCollection[i].isNew = true;
                 break;
             }
         }
