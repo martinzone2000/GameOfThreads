@@ -12,6 +12,7 @@ export default class CustomerBadges {
     }
 
     updateBadgeCollection(CreditRepot) {
+        console.log(CreditRepot);
         var bureauData = CreditRepot.bureaus;
         console.log(CreditRepot);
         if(bureauData[0].change > 5 || bureauData[1].change > 5 || bureauData[2].change > 5) {

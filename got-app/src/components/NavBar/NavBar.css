@@ -1,0 +1,14 @@
+.NavBar-Right {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}
+
+
+.NavBar-RocketPoint {
+    padding-right: 15%;
+}
+
+.NavBar-RocketPointImage{
+    padding-right: 5%;
+}
