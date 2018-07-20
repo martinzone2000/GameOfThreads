@@ -90,13 +90,6 @@ class Home extends Component {
     cr.accountRegister.add(new Account("American Express", "creditcard", 0, [], 15000))
     cr.accountRegister.add(new Account("Discover", "creditcard", 2500, [], 7000))
     this.state.creditReports.push(cr)
-
-    //month 4
-    cr = new CreditReport(true, true)
-    cr.addBureau(new Bureau("Trans Union", 650))
-    cr.addBureau(new Bureau("Equifax", 730))
-    cr.addBureau(new Bureau("Experian", 680))
-    this.state.creditReports.push(cr)
     
   }
 
