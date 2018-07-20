@@ -1,12 +1,13 @@
 import AccountRegister from "./AccountRegister";
 
 export default class CreditReport {
-    constructor(_refer, _quiz) {
+    constructor(_refer, _quiz, _refreshed) {
         this.bureaus = [];
         this.accountRegister = new AccountRegister();
         this.referrals = _refer;
         this.refreshCount = 0;
         this.quiz = _quiz;
+        this.hasRefreshed = _refreshed
     }
 
     addBureau(bureau) {

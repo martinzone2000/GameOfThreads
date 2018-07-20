@@ -46,7 +46,6 @@ class NavBar extends React.Component {
                 score: score == null || score == undefined ? 0 : score
             });
         }
-        console.log(this.state.score);
     }
 
     componentWillMount() {
