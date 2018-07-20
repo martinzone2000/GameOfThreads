@@ -24,10 +24,10 @@ class Home extends Component {
       customerBadges : new CustomerBadges()
     }
 
-    this.state.register.accounts.push(new Account("Wells Fargo", "mortgage", 255000, [], 255000))
-    this.state.register.accounts.push(new Account("Toyota Finance", "auto", 12500, [], 12500))
-    this.state.register.accounts.push(new Account("CitiBank Visa", "creditcard", 2500, [], 10000))
-    this.state.register.accounts.push(new Account("American ", "creditcard", 1450, [], 15000))
+    this.state.register.add(new Account("Wells Fargo", "mortgage", 255000, [], 255000))
+    this.state.register.add(new Account("Toyota Finance", "auto", 12500, [], 12500))
+    this.state.register.add(new Account("CitiBank Visa", "creditcard", 2500, [], 10000))
+    this.state.register.add(new Account("American ", "creditcard", 1450, [], 15000))
 
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addTrophy());
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addGoingUp());
@@ -49,6 +49,10 @@ class Home extends Component {
     cr.addBureau(new Bureau("Trans Union", 502))
     cr.addBureau(new Bureau("Equifax", 520))
     cr.addBureau(new Bureau("Experian", 512))
+    cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 255000, [], 255000))
+    cr.accountRegister.add(new Account("Toyota Finance", "auto", 12500, [], 12500))
+    cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 2500, [], 10000))
+    cr.accountRegister.add(new Account("American Express", "creditcard", 1450, [], 15000))
     this.state.creditReports.push(cr)
 
     //month 2
@@ -56,6 +60,10 @@ class Home extends Component {
     cr.addBureau(new Bureau("Trans Union", 522))
     cr.addBureau(new Bureau("Equifax", 530))
     cr.addBureau(new Bureau("Experian", 505))
+    cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 252500, [], 252500))
+    cr.accountRegister.add(new Account("Toyota Finance", "auto", 12000, [], 12500))
+    cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 5000, [], 10000))
+    cr.accountRegister.add(new Account("American Express", "creditcard", 2200, [], 15000))
     this.state.creditReports.push(cr)
 
     //month 3
@@ -63,6 +71,11 @@ class Home extends Component {
     cr.addBureau(new Bureau("Trans Union", 622))
     cr.addBureau(new Bureau("Equifax", 635))
     cr.addBureau(new Bureau("Experian", 640))
+    cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 250000, [], 250000))
+    cr.accountRegister.add(new Account("Toyota Finance", "auto", 11500, [], 12500))
+    cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 3000, [], 10000))
+    cr.accountRegister.add(new Account("American Express", "creditcard", 1000, [], 15000))
+    cr.accountRegister.add(new Account("Discover", "creditcard", 1000, [], 7000))
     this.state.creditReports.push(cr)
 
     //month 4
@@ -70,6 +83,11 @@ class Home extends Component {
     cr.addBureau(new Bureau("Trans Union", 600))
     cr.addBureau(new Bureau("Equifax", 630))
     cr.addBureau(new Bureau("Experian", 650))
+    cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 247500, [], 247500))
+    cr.accountRegister.add(new Account("Toyota Finance", "auto", 11100, [], 12500))
+    cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 2000, [], 10000))
+    cr.accountRegister.add(new Account("American Express", "creditcard", 0, [], 15000))
+    cr.accountRegister.add(new Account("Discover", "creditcard", 2500, [], 7000))
     this.state.creditReports.push(cr)
     
   }
@@ -139,8 +157,11 @@ class Home extends Component {
             <a href="/trophy"><img className="smallimg" src="/images/trophy.jpg"/></a>
         </div>
         <div>
-          <RegisterView register={this.state.register}/>
+          <RegisterView register={this.state.creditReports[this.state.currentReport].accountRegister}/>
         </div>
+        <div>Current Revolving: {this.state.creditReports[this.state.currentReport].accountRegister.current}</div>
+        <div>Max Revolving: {this.state.creditReports[this.state.currentReport].accountRegister.max}</div>
+        <div>Total Credit: {this.state.creditReports[this.state.currentReport].accountRegister.total}</div>
       </div>
     );
   }

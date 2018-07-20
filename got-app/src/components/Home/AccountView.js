@@ -8,6 +8,7 @@ export default class AccountView extends Component {
                 <div className="accountColumn">{this.props.account.type}</div>
                 <div className="accountColumn">{this.props.account.name}</div>
                 <div className="accountColumn">{this.props.account.balance}</div>
+                <div className="accountColumn">{this.props.account.change}</div>
             </div>
         )
     }
