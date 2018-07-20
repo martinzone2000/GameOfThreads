@@ -5,6 +5,5 @@ export default class BadgeCollection {
 
     add(badge) {
         this.badgeCollection.push(badge);
-        console.log(badge)
     }    
 }

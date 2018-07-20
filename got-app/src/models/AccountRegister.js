@@ -12,7 +12,6 @@ export default class AccountRegister {
             this.max += account.max;
             this.current += account.balance;
         }
-        this.total += account.balance
-        console.log(this)
+        this.total += account.balance;
     }
 }

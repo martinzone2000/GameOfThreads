@@ -46,7 +46,7 @@ class Home extends Component {
     var reports = [];
 
     //month 1
-    var cr = new CreditReport(false, false)
+    var cr = new CreditReport(false, false, true)
     cr.addBureau(new Bureau("Trans Union", 502))
     cr.addBureau(new Bureau("Equifax", 520))
     cr.addBureau(new Bureau("Experian", 512))
@@ -57,7 +57,7 @@ class Home extends Component {
     this.state.creditReports.push(cr)
 
     //month 2
-    cr = new CreditReport(true, false)
+    cr = new CreditReport(true, false, false)
     cr.addBureau(new Bureau("Trans Union", 522))
     cr.addBureau(new Bureau("Equifax", 530))
     cr.addBureau(new Bureau("Experian", 505))
@@ -68,7 +68,7 @@ class Home extends Component {
     this.state.creditReports.push(cr)
 
     //month 3
-    cr = new CreditReport(false, true)
+    cr = new CreditReport(false, true, true)
     cr.addBureau(new Bureau("Trans Union", 622))
     cr.addBureau(new Bureau("Equifax", 635))
     cr.addBureau(new Bureau("Experian", 640))
@@ -80,10 +80,11 @@ class Home extends Component {
     this.state.creditReports.push(cr)
 
     //month 4
-    cr = new CreditReport(true, true)
+    cr = new CreditReport(true, true, true)
     cr.addBureau(new Bureau("Trans Union", 600))
     cr.addBureau(new Bureau("Equifax", 630))
-    cr.addBureau(new Bureau("Experian", 650))
+    //changed to 750 to trigger the above 700 trophy badge.
+    cr.addBureau(new Bureau("Experian", 750))
     cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 247500, [], 247500))
     cr.accountRegister.add(new Account("Toyota Finance", "auto", 11100, [], 12500))
     cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 2000, [], 10000))
