@@ -94,14 +94,13 @@ class Home extends Component {
   }
 
   UpdateScores =  () => {
-
     var curr = this.state.currentReport;
     var nextr = Math.min(curr+1, this.state.creditReports.length-1)
     var cur = this.state.creditReports[curr];
     var next = this.state.creditReports[nextr];
     next.compare(cur);
     
-    this.state.customerBadges.updateBadgeCollection(this.state.creditReports[this.state.currentReport]);
+    this.state.customerBadges.updateBadgeCollection(this.state.creditReports[nextr]);
 
     this.setState(
       {
@@ -113,6 +112,7 @@ class Home extends Component {
     var stringify = require('json-stable-stringify');
     localStorage.setItem('customerBadges', stringify(this.state.customerBadges.customerBadgeCollection));
     this.state.newCount = this.getNewCount();
+    this.props.updateAppScore();
   }
 
   getNewCount() {
