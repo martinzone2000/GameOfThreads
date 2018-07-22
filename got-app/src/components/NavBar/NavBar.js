@@ -6,12 +6,18 @@ import IconButton from '@material-ui/core/IconButton';
 import SettingGear from '@material-ui/icons/Settings';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Router , Route, Link } from 'react-router-dom';
+import './NavBar.css';
+
 class NavBar extends React.Component {
-    state = {
-        auth: true,
-        anchorEl: null,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            auth: true,
+            anchorEl: null,
+            score: 0
+        };
+    }
+    
     
     handleChange = (event, checked) => {
     this.setState({ auth: checked });
@@ -24,6 +30,26 @@ class NavBar extends React.Component {
     handleClose = () => {
     this.setState({ anchorEl: null });
     };
+
+    updateScore() {
+        var customerBadges = localStorage.getItem('customerBadges');
+        if(customerBadges != null) {
+            var jsonCustomerBadges = JSON.parse(customerBadges);
+            var score = 0;
+            for(var i=0; i < jsonCustomerBadges.length; i++){
+                score += jsonCustomerBadges[i].point * jsonCustomerBadges[i].count;
+            }
+
+            this.setState({ 
+                score: score == null || score == undefined ? 0 : score
+            });
+        }
+    }
+
+    componentWillMount() {
+        this.updateScore();
+    }
+
     render() {
         const { classes } = this.props;
         const { auth, anchorEl } = this.state;
@@ -64,6 +90,12 @@ class NavBar extends React.Component {
                                     <MenuItem onClick={this.handleClose}>Badge</MenuItem>
                                 </Link>
                             </Menu>
+                        </div>
+                        <div className="NavBar-Right">
+                            <div className="NavBar-RocketPoint"><p>{this.state.score}</p></div>
+                            <div className="NavBar-RocketPointImage">
+                                <img src="/images/trans_rocket_point.png" />
+                            </div>
                         </div>
                     </ToolBar>
                 </AppBar>

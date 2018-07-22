@@ -28,6 +28,7 @@ class Home extends Component {
 
     var stringify = require('json-stable-stringify');
     localStorage.setItem('customerBadges', stringify(data.customerBadges.customerBadgeCollection));
+
   }
 
 

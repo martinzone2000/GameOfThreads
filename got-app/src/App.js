@@ -55,6 +55,11 @@ class App extends Component {
   }
 
   render() {
+    const HomePage = () => {
+      return (
+        <Home updateAppScore={this.updateAppScore.bind(this)} />
+      );
+    }
     return (
         <div className="App">
               <AppRouter app={this}/>
