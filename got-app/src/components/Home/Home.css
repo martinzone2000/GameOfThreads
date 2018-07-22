@@ -43,6 +43,10 @@
     opacity: 0;
 }
 
+.solid {
+    opacity: 100;
+}
+
 .smallimg {
     width: 40px;
     height: 40px;

@@ -6,9 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SettingGear from '@material-ui/icons/Settings';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Link } from 'react-router-dom';
 import './NavBar.css';
-
 
 class NavBar extends React.Component {
     constructor(props) {
@@ -82,7 +80,7 @@ class NavBar extends React.Component {
                                 open={open}
                                 onClose={this.handleClose}
                                 >
-                                <Link to="/home">
+                                <Link to="/">
                                     <MenuItem onClick={this.handleClose}>Home</MenuItem>
                                 </Link>
                                 <Link to="/trophy">

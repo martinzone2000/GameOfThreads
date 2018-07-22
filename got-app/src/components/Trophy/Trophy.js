@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Trophy.css';
 import Gallery from '../Gallery/Gallery.js';
 import Grid from '../Grid/Grid.js';
+import {Link} from "react-router-dom"
+import NavBar from "../NavBar/NavBar"
 
 class Trophy extends Component {
   constructor(props) {
@@ -42,10 +44,12 @@ class Trophy extends Component {
   render() {    
     return (
       <div className="Trophy">
+        <NavBar/>
         <h1>Trophy Page</h1>
         <Gallery badgeList={this.state.customerBadges} />
         <br />
         <Grid badgeList={this.state.badgeCollection} />
+        <Link to="/">home</Link>
       </div>
     );
   }

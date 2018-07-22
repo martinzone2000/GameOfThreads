@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Badge.css';
+import NavBar from "../NavBar/NavBar"
 
 class Badge extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Badge extends Component {
   render() {
     return (
       <div className="Badge">
+        <NavBar/>
         <h1>{this.state.badge.displayName + " Badge"}</h1>
         <img src={this.state.badge.imageUrl} />
         <div className="Badge-description">
