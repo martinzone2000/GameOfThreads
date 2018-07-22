@@ -7,6 +7,7 @@ import SettingGear from '@material-ui/icons/Settings';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import './NavBar.css';
+import { Router, Route, Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
     constructor(props) {
