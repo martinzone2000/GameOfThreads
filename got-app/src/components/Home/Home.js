@@ -10,6 +10,8 @@ import BadgeCollection from '../../models/BadgeCollection';
 import CustomerBadges from '../../models/CustomerBadges';
 import CreditReport from '../../models/CreditReport'
 import MaterialsBadge from '@material-ui/core/Badge';
+import {Router, Route, Link} from "react-router-dom"
+import NavBar from '../NavBar/NavBar';
 
 class Home extends Component {
 
@@ -17,19 +19,11 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      currentReport : 0,
-      creditReports : [],
-      register: new AccountRegister(),
       badge: new Badge(),
       badgeCompendium : new BadgeCollection(),
       customerBadges : new CustomerBadges(),
       newCount : 0
     }
-
-    this.state.register.add(new Account("Wells Fargo", "mortgage", 255000, [], 255000))
-    this.state.register.add(new Account("Toyota Finance", "auto", 12500, [], 12500))
-    this.state.register.add(new Account("CitiBank Visa", "creditcard", 2500, [], 10000))
-    this.state.register.add(new Account("American ", "creditcard", 1450, [], 15000))
 
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addTrophy());
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addGoingUp());
@@ -39,80 +33,22 @@ class Home extends Component {
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addQuizMaster());
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addRecruiter());
     this.state.badgeCompendium.badgeCollection.push(this.state.badge.addTechnoMaster());
-    this.InitReports();
-  }
-
-  InitReports = () => {
-    var reports = [];
-
-    //month 1
-    var cr = new CreditReport(false, false)
-    cr.addBureau(new Bureau("Trans Union", 502))
-    cr.addBureau(new Bureau("Equifax", 520))
-    cr.addBureau(new Bureau("Experian", 512))
-    cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 255000, [], 255000))
-    cr.accountRegister.add(new Account("Toyota Finance", "auto", 12500, [], 12500))
-    cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 2500, [], 10000))
-    cr.accountRegister.add(new Account("American Express", "creditcard", 1450, [], 15000))
-    this.state.creditReports.push(cr)
-
-    //month 2
-    cr = new CreditReport(true, false)
-    cr.addBureau(new Bureau("Trans Union", 522))
-    cr.addBureau(new Bureau("Equifax", 530))
-    cr.addBureau(new Bureau("Experian", 505))
-    cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 252500, [], 252500))
-    cr.accountRegister.add(new Account("Toyota Finance", "auto", 12000, [], 12500))
-    cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 5000, [], 10000))
-    cr.accountRegister.add(new Account("American Express", "creditcard", 2200, [], 15000))
-    this.state.creditReports.push(cr)
-
-    //month 3
-    cr = new CreditReport(false, true)
-    cr.addBureau(new Bureau("Trans Union", 622))
-    cr.addBureau(new Bureau("Equifax", 635))
-    cr.addBureau(new Bureau("Experian", 640))
-    cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 250000, [], 250000))
-    cr.accountRegister.add(new Account("Toyota Finance", "auto", 11500, [], 12500))
-    cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 3000, [], 10000))
-    cr.accountRegister.add(new Account("American Express", "creditcard", 1000, [], 15000))
-    cr.accountRegister.add(new Account("Discover", "creditcard", 1000, [], 7000))
-    this.state.creditReports.push(cr)
-
-    //month 4
-    cr = new CreditReport(true, true)
-    cr.addBureau(new Bureau("Trans Union", 600))
-    cr.addBureau(new Bureau("Equifax", 630))
-    cr.addBureau(new Bureau("Experian", 650))
-    cr.accountRegister.add(new Account("Wells Fargo", "mortgage", 247500, [], 247500))
-    cr.accountRegister.add(new Account("Toyota Finance", "auto", 11100, [], 12500))
-    cr.accountRegister.add(new Account("CitiBank Visa", "creditcard", 2000, [], 10000))
-    cr.accountRegister.add(new Account("American Express", "creditcard", 0, [], 15000))
-    cr.accountRegister.add(new Account("Discover", "creditcard", 2500, [], 7000))
-    this.state.creditReports.push(cr)
-    
   }
 
   UpdateScores =  () => {
+    var data = this.props.app.state.globalData;
+    var currentReport = data.creditReports[data.currentReport]
+    this.state.customerBadges.updateBadgeCollection(currentReport);
 
-    var curr = this.state.currentReport;
-    var nextr = Math.min(curr+1, this.state.creditReports.length-1)
-    var cur = this.state.creditReports[curr];
-    var next = this.state.creditReports[nextr];
-    next.compare(cur);
-    
-    this.state.customerBadges.updateBadgeCollection(this.state.creditReports[this.state.currentReport]);
-
-    this.setState(
-      {
-        currentReport:nextr,
-        creditReports: this.state.creditReports
-      }
-    );
+    this.props.app.UpdateScores();
 
     var stringify = require('json-stable-stringify');
     localStorage.setItem('customerBadges', stringify(this.state.customerBadges.customerBadgeCollection));
     this.state.newCount = this.getNewCount();
+
+    this.setState( {
+      newCount: this.state.newCount 
+    })
   }
 
   getNewCount() {
@@ -154,38 +90,48 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.props)
+    console.log(this.state)
+    var data = this.props.app.state.globalData;
+    var currentReport = data.creditReports[data.currentReport]
     return (
       <div className="Home">
+        <NavBar/>
         {
-          this.state.creditReports[this.state.currentReport].bureaus.map((b,i) => 
+          currentReport.bureaus.map((b,i) => 
             <Score report={b} />
           )
 
         }
-        <div>Referrals: {this.state.creditReports[this.state.currentReport].referrals ? "Yes":"No"}</div>
-        <div>Quiz: {this.state.creditReports[this.state.currentReport].quiz ? "Yes":"No"}</div>
-        <div>Refresh Count: {this.state.creditReports[this.state.currentReport].refreshCount}</div>
+
+        <div>Referrals: {currentReport.referrals ? "Yes":"No"}</div>
+        <div>Quiz: {currentReport.quiz ? "Yes":"No"}</div>
+        <div>Refresh Count: {currentReport.refreshCount}</div>
+
+
         <div>
           <button className="button" onClick={this.UpdateScores}>Refresh</button>
         </div>
         {
-          this.state.newCount > 0 ? (
+          data.newCount > 0 ? (
             <div className="trophy">
-              <MaterialsBadge className="Home-MaterialsBadge" badgeContent={this.state.newCount} color="primary">
-                  <a href="/trophy"><img className="smallimg" src="/images/trophy.jpg"/></a>
+              <MaterialsBadge className="Home-MaterialsBadge" badgeContent={data.newCount} color="primary">
+                  <Link to="/trophy"><img className="smallimg" src="/images/trophy.jpg"/></Link>
               </MaterialsBadge>
             </div>) : (
               <div className="trophy">
-                <a href="/trophy"><img className="smallimg" src="/images/trophy.jpg"/></a>
+                <Link to="/trophy"><img className="smallimg" src="/images/trophy.jpg"/></Link>
             </div>
             )
         }
+        <Link to="/trophy">trophy</Link>
         <div>
-          <RegisterView register={this.state.creditReports[this.state.currentReport].accountRegister}/>
+          <RegisterView register={currentReport.accountRegister}/>
         </div>
-        <div>Current Revolving: {this.state.creditReports[this.state.currentReport].accountRegister.current}</div>
-        <div>Max Revolving: {this.state.creditReports[this.state.currentReport].accountRegister.max}</div>
-        <div>Total Credit: {this.state.creditReports[this.state.currentReport].accountRegister.total}</div>
+        <div>Current Revolving: {currentReport.accountRegister.current}</div>
+        <div>Max Revolving: {currentReport.accountRegister.max}</div>
+        <div>Total Credit: {currentReport.accountRegister.total}</div>
+        <div>Month: {data.currentReport}</div>
       </div>
     );
   }

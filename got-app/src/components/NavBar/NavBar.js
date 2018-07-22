@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SettingGear from '@material-ui/icons/Settings';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Link } from 'react-router-dom';
+import { Router , Route, Link } from 'react-router-dom';
 class NavBar extends React.Component {
     state = {
         auth: true,
@@ -54,7 +54,7 @@ class NavBar extends React.Component {
                                 open={open}
                                 onClose={this.handleClose}
                                 >
-                                <Link to="/home">
+                                <Link to="/">
                                     <MenuItem onClick={this.handleClose}>Home</MenuItem>
                                 </Link>
                                 <Link to="/trophy">
