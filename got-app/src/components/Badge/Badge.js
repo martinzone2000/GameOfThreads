@@ -12,9 +12,10 @@ class Badge extends Component {
 
   componentWillMount() {
     
-    var badgeCollection = localStorage.getItem('badgeCompendium');
-    badgeCollection = JSON.parse(badgeCollection);
+    //var badgeCollection = localStorage.getItem('badgeCompendium');
+    //badgeCollection = JSON.parse(badgeCollection);
 
+    var badgeCollection = this.props.app.state.globalData.badgeCompendium.badgeCollection
     for(var i = 0; i < badgeCollection.length; i++) {
       if(badgeCollection[i].name == this.props.match.params.badge) {
         this.state.badge = badgeCollection[i]
@@ -24,6 +25,8 @@ class Badge extends Component {
   }
 
   render() {
+    console.log(this.props)
+    console.log(this.props.match.params.badge)
     return (
       <div className="Badge">
         <NavBar/>
